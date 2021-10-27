@@ -1,0 +1,74 @@
+<template>
+  <main>
+    <Menu />
+
+    <form @submit.prevent="send">
+      <input v-model="email" placeholder="E-mail" :class="emailClass" />
+      <input v-model="subject" placeholder="Assunto" :class="subjectClass" />
+      <textarea
+        v-model="message"
+        cols="30"
+        rows="10"
+        :class="messageClass"
+      ></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+
+    <p>{{ result }}</p>
+  </main>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: "",
+      emailClass: "",
+      subject: "",
+      subjectClass: "",
+      message: "",
+      messageClass: "",
+      result: "",
+    };
+  },
+
+  methods: {
+    send() {
+      this.emailClass = "";
+      this.subjectClass = "";
+      this.messageClass = "";
+
+      if (!this.email) {
+        this.result = "Epa, não preencheu o e-mail!";
+        this.emailClass = "error";
+        return;
+      }
+
+      if (!this.subject) {
+        this.result = "Epa, não preencheu o assunto!";
+        this.subjectClass = "error";
+        return;
+      }
+
+      if (!this.message) {
+        this.result = "Epa, não preencheu a mensagem!";
+        this.messageClass = "error";
+        return;
+      }
+
+      this.result = "Viva, enviou!";
+
+      this.email = "";
+      this.subject = "";
+      this.message = "";
+    },
+  },
+};
+</script>
+
+<style scoped>
+.error {
+  border: 1px solid red;
+}
+</style>
